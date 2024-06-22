@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AlmacenPorAhiASP.Models.Venta>
+﻿@model IEnumerable<AlmacenPorAhi_ASP.Models.Devolucion>
 
 @{
     ViewBag.Title = "Almacenes por Ahí";
@@ -7,32 +7,31 @@
 
 @if (isLogged)
 {
-    <h2>Listado de ventas</h2>
+    <h2>Listado de devoluciones</h2>
 
     <p>
-        @Html.ActionLink("Ingresar venta", "Create") |
-        @Html.ActionLink("Crear cliente", "Create", "Clients") |
+        @Html.ActionLink("Solicitar Devolucion", "Create") |
         @Html.ActionLink("Regresar al Inicio", "Index", "Home")
     </p>
     <table class="table">
         <tr>
             <th>
+                Identificador venta
+            </th>
+            <th>
                 Nombre Cliente
             </th>
             <th>
-                Producto
-            </th>
-            <th>
-                Vendedor
+                Nombre Producto
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Fecha)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cantidad)
+                Total a devolver
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Total)
+                @Html.DisplayNameFor(model => model.Estado)
             </th>
             <th></th>
         </tr>
@@ -41,22 +40,22 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Cliente.Nombre)
+                    @Html.DisplayFor(modelItem => item.Venta.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Producto.Nombre)
+                    @Html.DisplayFor(modelItem => item.NombreCliente)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Usuario.FirstName)
+                    @Html.DisplayFor(modelItem => item.NombreProducto)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Fecha)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Cantidad)
+                    $ @Html.DisplayFor(modelItem => item.TotalDevolucion)
                 </td>
                 <td>
-                    $ @Html.DisplayFor(modelItem => item.Total)
+                    @Html.DisplayFor(modelItem => item.Estado)
                 </td>
                 <td>
                     @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
@@ -69,6 +68,8 @@
 }
 else
 {
-    <h2>No autorizado</h2>
+
+    <h2>Bienvenido</h2>
     <p>Para poder usar las herramientas debe iniciar sesion @Html.ActionLink("aquí", "Ingress", "Home")  o puede crear una cuenta @Html.ActionLink("aquí", "Create", "User")</p>
+
 }

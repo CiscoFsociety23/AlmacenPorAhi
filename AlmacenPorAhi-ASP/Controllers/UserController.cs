@@ -12,7 +12,7 @@ namespace AlmacenPorAhi_ASP.Controllers
 {
     public class UserController : Controller
     {
-        private AlmacenDbContext db = new AlmacenDbContext();
+        private AlmacenesDbContext db = new AlmacenesDbContext();
 
         // GET: User
         public ActionResult Index()

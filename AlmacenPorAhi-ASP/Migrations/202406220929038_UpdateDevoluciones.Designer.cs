@@ -7,13 +7,13 @@ namespace AlmacenPorAhi_ASP.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class InitialCreate1 : IMigrationMetadata
+    public sealed partial class UpdateDevoluciones : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateDevoluciones));
         
         string IMigrationMetadata.Id
         {
-            get { return "202406220137272_InitialCreate1"; }
+            get { return "202406220929038_UpdateDevoluciones"; }
         }
         
         string IMigrationMetadata.Source

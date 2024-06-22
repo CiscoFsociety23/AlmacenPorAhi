@@ -1,0 +1,81 @@
+﻿@model AlmacenPorAhi_ASP.Models.Devolucion
+
+@{
+    ViewBag.Title = "Solicitud de Devolución";
+    bool isLogged = Request.Cookies["IsLoggedIn"] != null && Request.Cookies["IsLoggedIn"].Value == "true";
+}
+
+@if (isLogged)
+{
+    <h2>Eliminar Devolucion</h2>
+
+    <p>Estas seguro de eliminar esta solicitud?</p>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Venta.Id)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Venta.Id)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.NombreCliente)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NombreCliente)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.NombreProducto)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NombreProducto)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Fecha)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TotalDevolucion)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TotalDevolucion)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Estado)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Estado)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="borrar" class="btn btn-primary" /> |
+                <a class="btn btn-secondary" href="/Devoluciones">Cancelar</a>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <h2>Bienvenido</h2>
+    <p>Para poder usar las herramientas debe iniciar sesión @Html.ActionLink("aquí", "Ingress", "Home") o puede crear una cuenta @Html.ActionLink("aquí", "Create", "User")</p>
+}

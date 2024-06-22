@@ -8,11 +8,12 @@ using System.Web;
 
 namespace AlmacenPorAhiASP.Models
 {
-    public class AlmacenDbContext : DbContext
+    public class AlmacenesDbContext : DbContext
     {
         public DbSet<Producto> Productos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Venta> Ventas { get; set; }
+        public DbSet<Devolucion> Devoluciones { get; set; }
     }
 }
