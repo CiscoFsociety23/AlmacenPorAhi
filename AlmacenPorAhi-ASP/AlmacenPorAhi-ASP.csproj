@@ -224,7 +224,6 @@
     <Content Include="Views\Sales\Edit.cshtml" />
     <Content Include="Views\Devoluciones\Create.cshtml" />
     <Content Include="Views\Devoluciones\Delete.cshtml" />
-    <Content Include="Views\Devoluciones\Details.cshtml" />
     <Content Include="Views\Devoluciones\Edit.cshtml" />
     <Content Include="Views\Devoluciones\Index.cshtml" />
   </ItemGroup>

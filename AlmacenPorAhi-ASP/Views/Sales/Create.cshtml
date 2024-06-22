@@ -28,7 +28,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.ClienteId, "Nombre Cliente", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("ClienteId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("ClienteId", ViewBag.ClienteId as SelectList, "--Seleccione Cliente--", htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.ClienteId, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -36,7 +36,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.ProductoId, "Nombre Producto", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("ProductoId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("ProductoId", ViewBag.ProductoId as SelectList, "--Seleccione producto--", htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.ProductoId, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -44,7 +44,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.UsuarioId, "Nombre Vendedor", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("UsuarioId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("UsuarioId", ViewBag.UsuarioId as SelectList, "--Seleccione vendedor--", htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.UsuarioId, "", new { @class = "text-danger" })
                 </div>
             </div>

@@ -22,26 +22,26 @@ namespace AlmacenPorAhi_ASP.Controllers
             return View(devoluciones.ToList());
         }
 
-        // GET: Devoluciones/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Devolucion devolucion = db.Devoluciones.Find(id);
-            if (devolucion == null)
-            {
-                return HttpNotFound();
-            }
-            return View(devolucion);
-        }
-
         // GET: Devoluciones/Create
         public ActionResult Create()
         {
             ViewBag.VentaId = new SelectList(db.Ventas, "Id", "Id");
             return View();
+        }
+
+        public JsonResult ObtenerDatosVenta(int ventaId)
+        {
+            var venta = db.Ventas.Include("Cliente").Include("Producto").FirstOrDefault(v => v.Id == ventaId);
+            if (venta != null)
+            {
+                return Json(new
+                {
+                    NombreCliente = venta.Cliente.Nombre,
+                    NombreProducto = venta.Producto.Nombre,
+                    TotalDevolucion = venta.Total
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(null);
         }
 
         // POST: Devoluciones/Create
@@ -53,9 +53,18 @@ namespace AlmacenPorAhi_ASP.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Devoluciones.Add(devolucion);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                // Cargar los detalles de la venta seleccionada
+                var venta = db.Ventas.Include("Cliente").Include("Producto").FirstOrDefault(v => v.Id == devolucion.VentaId);
+                if (venta != null)
+                {
+                    devolucion.NombreCliente = venta.Cliente.Nombre;
+                    devolucion.NombreProducto = venta.Producto.Nombre;
+                    devolucion.TotalDevolucion = venta.Total;
+
+                    db.Devoluciones.Add(devolucion);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
 
             ViewBag.VentaId = new SelectList(db.Ventas, "Id", "Id", devolucion.VentaId);

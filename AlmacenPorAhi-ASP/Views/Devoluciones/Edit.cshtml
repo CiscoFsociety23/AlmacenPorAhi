@@ -1,77 +1,85 @@
 ﻿@model AlmacenPorAhi_ASP.Models.Devolucion
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar Devolucion";
+    bool isLogged = Request.Cookies["IsLoggedIn"] != null && Request.Cookies["IsLoggedIn"].Value == "true";
 }
 
-<h2>Edit</h2>
-
-@using (Html.BeginForm())
+@if (isLogged)
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Devolucion</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
+    <h2>Editar Devolucion</h2>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.VentaId, "VentaId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("VentaId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.VentaId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NombreCliente, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NombreCliente, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NombreCliente, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NombreProducto, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NombreProducto, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NombreProducto, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.VentaId, "Indentificador venta", htmlAttributes: new { @class = "control-label col-md-2 font-weight-bold" })<br />
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.VentaId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.VentaId, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.NombreCliente, "Nombre Cliente", htmlAttributes: new { @class = "control-label col-md-2 font-weight-bold" })<br />
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.NombreCliente, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NombreCliente, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TotalDevolucion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TotalDevolucion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TotalDevolucion, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.NombreProducto, "Producto", htmlAttributes: new { @class = "control-label col-md-2 font-weight-bold" })<br />
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.NombreProducto, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NombreProducto, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.Estado, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2 font-weight-bold" })<br />
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="form-group">
+                @Html.LabelFor(model => model.TotalDevolucion, "Total a devolver", htmlAttributes: new { @class = "control-label col-md-2 font-weight-bold" })<br />
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.TotalDevolucion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TotalDevolucion, "", new { @class = "text-danger" })
+                </div>
             </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Estado, htmlAttributes: new { @class = "control-label col-md-2 font-weight-bold" })<br />
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(model => model.Estado, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
+                </div>
+            </div><br />
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                </div>
+            </div><br />
         </div>
+    }
+
+    <div>
+        @Html.ActionLink("Volver al listado", "Index")
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+else
+{
+    <h2>No Autorizado</h2>
+    <p>Para poder usar las herramientas debe iniciar sesión @Html.ActionLink("aquí", "Ingress", "Home")  o puede crear una cuenta @Html.ActionLink("aquí", "Create", "User")</p>
+}
