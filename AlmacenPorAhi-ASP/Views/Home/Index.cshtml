@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Almacenes por Ahí";
+    bool isLogged = Request.Cookies["IsLoggedIn"] != null && Request.Cookies["IsLoggedIn"].Value == "true";
+}
+
+@if (isLogged)
+{
+
+    <main>
+        <section class="row" aria-labelledby="aspnetTitle">
+            <h2>Bienvenido, Administrador!</h2>
+        </section><br /><br />
+
+        <div class="row">
+
+            <section class="col-md-4" aria-labelledby="usersAdministration">
+                <h2 id="usersAdministration">Administracion de Usuarios</h2>
+                <p>
+                    Modulo que permite ver, crear, actualizar y eliminar usuario
+                    en el sistema.
+                </p>
+                <p><a class="btn btn-outline-dark" href="User/">Ir al modulo &raquo;</a></p>
+            </section>
+
+            <section class="col-md-4" aria-labelledby="productsAdministration">
+                <h2 id="productsAdministration">Administracion de Productos</h2>
+                <p>
+                    Modulo que permite ver, crear, actualizar y eliminar productos
+                    en el sistema.
+                </p>
+                <p><a class="btn btn-outline-dark" href="Product/">Ir al modulo &raquo;</a></p>
+            </section>
+
+            <section class="col-md-4" aria-labelledby="clientsAdministration">
+                <h2 id="clientsAdministration">Administracion de Clientes</h2>
+                <p>
+                    Modulo que permite ver, crear, actualizar y eliminar clientes
+                    en el sistema.
+                </p>
+                <p><a class="btn btn-outline-dark" href="Clients/">Ir al modulo &raquo;</a></p>
+            </section>
+
+        </div>
+    </main>
+
+}
+else
+{
+
+    <h2>Bienvenido</h2>
+    <p>Para poder usar las herramientas debe iniciar sesion @Html.ActionLink("aquí", "Ingress", "Home")  o puede crear una cuenta @Html.ActionLink("aquí", "Create", "User")</p>
+
+}

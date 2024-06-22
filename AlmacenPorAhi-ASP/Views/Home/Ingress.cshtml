@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Almacenes por Ahí";
+}
+
+<form action="/User/VerifyLogin" method="post">
+    <div class="form-group">
+        <label for="exampleInputEmail1">Correo</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" placeholder="usuario@dominio.com">
+    </div><br />
+    <div class="form-group">
+        <label for="exampleInputPassword1">Contraseña</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Contraseña">
+    </div><br />
+    <button type="submit" class="btn btn-primary">Ingresar</button>
+</form>
+<br />
+
+<div>
+    @Html.ActionLink("No tienes cuenta?", "Create", "User")
+</div>

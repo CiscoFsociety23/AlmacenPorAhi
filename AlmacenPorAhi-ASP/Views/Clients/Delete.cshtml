@@ -1,0 +1,58 @@
+﻿@model AlmacenPorAhi_ASP.Models.Cliente
+
+@{
+    ViewBag.Title = "Almacenes por Ahí";
+    bool isLogged = Request.Cookies["IsLoggedIn"] != null && Request.Cookies["IsLoggedIn"].Value == "true";
+}
+
+
+@if (isLogged)
+{
+    <h2>Eliminar cliente</h2>
+    <p>Estas seguro de realziar esta accion?</p>
+    <p>(Debes primero eliminar sus ventas asociadas)</p>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Apellido)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Correo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Correo)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-primary" /> |
+                <a class="btn btn-secondary" href="/Clients">Cancelar</a>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <h2>No autorizado</h2>
+    <p>Para poder usar las herramientas debe iniciar sesion <a href="Home/Ingress">Aquí</a> o puede crear una cuenta <a href="User/Create">Aquí</a></p>
+}

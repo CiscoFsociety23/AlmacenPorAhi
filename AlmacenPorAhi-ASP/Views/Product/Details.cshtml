@@ -1,0 +1,58 @@
+﻿@model AlmacenPorAhiASP.Models.Producto
+
+@{
+    ViewBag.Title = "Almacenes por Ahí";
+    bool isLogged = Request.Cookies["IsLoggedIn"] != null && Request.Cookies["IsLoggedIn"].Value == "true";
+}
+
+@if (isLogged)
+{
+    <h2>Detalle del producto</h2>
+
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Descripcion)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Precio)
+            </dt>
+
+            <dd>
+                $ @Html.DisplayFor(model => model.Precio)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Stock)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Stock)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Voler al listado", "Index")
+    </p>
+}
+else
+{
+    <h2>No autorizado</h2>
+    <p>Para poder usar las herramientas debe iniciar sesion <a href="Home/Ingress">Aquí</a> o puede crear una cuenta <a href="User/Create">Aquí</a></p>
+}
