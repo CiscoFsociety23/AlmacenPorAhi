@@ -21,19 +21,31 @@ namespace AlmacenPorAhi_ASP.Controllers
             return View(ventas.ToList());
         }
 
-        // GET: Sales/Details/5
-        public ActionResult Details(int? id)
+        // GET: Sales/GetProductPrice
+        public JsonResult GetProductPrice(int productId)
         {
-            if (id == null)
+            var producto = db.Productos.Find(productId);
+            if (producto != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return Json(producto.Precio, JsonRequestBehavior.AllowGet);
             }
-            Venta venta = db.Ventas.Find(id);
-            if (venta == null)
+            return Json(0, JsonRequestBehavior.AllowGet);
+        }
+
+        // GET: Sales/GetProductDetails
+        public JsonResult GetProductDetails(int productId)
+        {
+            var producto = db.Productos.Find(productId);
+            if (producto != null)
             {
-                return HttpNotFound();
+                var data = new
+                {
+                    Precio = producto.Precio,
+                    Stock = producto.Stock
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
-            return View(venta);
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Sales/Create
@@ -54,9 +66,18 @@ namespace AlmacenPorAhi_ASP.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Ventas.Add(venta);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var producto = db.Productos.Find(venta.ProductoId);
+                if (producto != null && producto.Stock >= venta.Cantidad)
+                {
+                    producto.Stock -= venta.Cantidad;
+                    db.Ventas.Add(venta);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Stock insuficiente para el producto seleccionado.");
+                }
             }
 
             ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nombre", venta.ClienteId);

@@ -1,63 +1,74 @@
 ﻿@model IEnumerable<AlmacenPorAhiASP.Models.Venta>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Almacenes por Ahí";
+    bool isLogged = Request.Cookies["IsLoggedIn"] != null && Request.Cookies["IsLoggedIn"].Value == "true";
 }
 
-<h2>Index</h2>
+@if (isLogged)
+{
+    <h2>Listado de ventas</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Cliente.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Producto.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Usuario.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fecha)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cantidad)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Total)
-        </th>
-        <th></th>
-    </tr>
+    <p>
+        @Html.ActionLink("Ingresar venta", "Create") |
+        @Html.ActionLink("Crear cliente", "Create", "Clients") |
+        @Html.ActionLink("Regresar al Inicio", "Index", "Home")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                Nombre Cliente
+            </th>
+            <th>
+                Producto
+            </th>
+            <th>
+                Vendedor
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cantidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cliente.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Producto.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuario.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cantidad)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Total)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cliente.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Producto.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Usuario.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cantidad)
+                </td>
+                <td>
+                    $ @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Borrar", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>
 }
-
-</table>
+else
+{
+    <h2>No autorizado</h2>
+    <p>Para poder usar las herramientas debe iniciar sesion <a href="Home/Ingress">Aquí</a> o puede crear una cuenta <a href="User/Create">Aquí</a></p>
+}
