@@ -55,5 +55,5 @@
 else
 {
     <h2>No autorizado</h2>
-    <p>Para poder usar las herramientas debe iniciar sesion <a href="Home/Ingress">Aquí</a> o puede crear una cuenta <a href="User/Create">Aquí</a></p>
+    <p>Para poder usar las herramientas debe iniciar sesion @Html.ActionLink("aquí", "Ingress", "Home")  o puede crear una cuenta @Html.ActionLink("aquí", "Create", "User")</p>
 }

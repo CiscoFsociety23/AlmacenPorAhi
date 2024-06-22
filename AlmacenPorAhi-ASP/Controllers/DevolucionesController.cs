@@ -11,107 +11,112 @@ using AlmacenPorAhi_ASP.Models;
 
 namespace AlmacenPorAhi_ASP.Controllers
 {
-    public class ClientsController : Controller
+    public class DevolucionesController : Controller
     {
         private AlmacenesDbContext db = new AlmacenesDbContext();
 
-        // GET: Clients
+        // GET: Devoluciones
         public ActionResult Index()
         {
-            return View(db.Clientes.ToList());
+            var devoluciones = db.Devoluciones.Include(d => d.Venta);
+            return View(devoluciones.ToList());
         }
 
-        // GET: Clients/Details/5
+        // GET: Devoluciones/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cliente cliente = db.Clientes.Find(id);
-            if (cliente == null)
+            Devolucion devolucion = db.Devoluciones.Find(id);
+            if (devolucion == null)
             {
                 return HttpNotFound();
             }
-            return View(cliente);
+            return View(devolucion);
         }
 
-        // GET: Clients/Create
+        // GET: Devoluciones/Create
         public ActionResult Create()
         {
+            ViewBag.VentaId = new SelectList(db.Ventas, "Id", "Id");
             return View();
         }
 
-        // POST: Clients/Create
+        // POST: Devoluciones/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nombre,Apellido,Correo")] Cliente cliente)
+        public ActionResult Create([Bind(Include = "Id,VentaId,NombreCliente,NombreProducto,Fecha,TotalDevolucion,Estado")] Devolucion devolucion)
         {
             if (ModelState.IsValid)
             {
-                db.Clientes.Add(cliente);
+                db.Devoluciones.Add(devolucion);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(cliente);
+            ViewBag.VentaId = new SelectList(db.Ventas, "Id", "Id", devolucion.VentaId);
+            return View(devolucion);
         }
 
-        // GET: Clients/Edit/5
+        // GET: Devoluciones/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cliente cliente = db.Clientes.Find(id);
-            if (cliente == null)
+            Devolucion devolucion = db.Devoluciones.Find(id);
+            if (devolucion == null)
             {
                 return HttpNotFound();
             }
-            return View(cliente);
+            ViewBag.VentaId = new SelectList(db.Ventas, "Id", "Id", devolucion.VentaId);
+            return View(devolucion);
         }
 
-        // POST: Clients/Edit/5
+        // POST: Devoluciones/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nombre,Apellido,Correo")] Cliente cliente)
+        public ActionResult Edit([Bind(Include = "Id,VentaId,NombreCliente,NombreProducto,Fecha,TotalDevolucion,Estado")] Devolucion devolucion)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(cliente).State = EntityState.Modified;
+                db.Entry(devolucion).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(cliente);
+            ViewBag.VentaId = new SelectList(db.Ventas, "Id", "Id", devolucion.VentaId);
+            return View(devolucion);
         }
 
-        // GET: Clients/Delete/5
+        // GET: Devoluciones/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cliente cliente = db.Clientes.Find(id);
-            if (cliente == null)
+            Devolucion devolucion = db.Devoluciones.Find(id);
+            if (devolucion == null)
             {
                 return HttpNotFound();
             }
-            return View(cliente);
+            return View(devolucion);
         }
 
-        // POST: Clients/Delete/5
+        // POST: Devoluciones/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Cliente cliente = db.Clientes.Find(id);
-            db.Clientes.Remove(cliente);
+            Devolucion devolucion = db.Devoluciones.Find(id);
+            db.Devoluciones.Remove(devolucion);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

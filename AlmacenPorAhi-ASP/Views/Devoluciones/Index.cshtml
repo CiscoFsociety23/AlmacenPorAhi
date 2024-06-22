@@ -1,0 +1,63 @@
+﻿@model IEnumerable<AlmacenPorAhi_ASP.Models.Devolucion>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Venta.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreProducto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalDevolucion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Venta.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreProducto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalDevolucion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estado)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
